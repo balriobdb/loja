@@ -7,10 +7,11 @@ global $produtos;
 $p = null;
 
 if($_SERVER["REQUEST_METHOD"] === "POST"){
-    if(isset($_POST["pesquisar"])){
-        $p = $controller->pesquisaProduto($_POST["pesquisar"]);
+    if(isset($_POST["pesquisar"]) && isset($_POST["tipo_pesquisa"])){
+        $p = $controller->pesquisaProduto($_POST["pesquisar"], $_POST["tipo_pesquisa"]);
     }
 }
+
 
 ?>
 
@@ -37,27 +38,44 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 <h3>Pesquisar Produto</h3>
 
 <form method="POST" action="index.php">
-    <label>ID_PRODUTO</label>
-    <input typep="number" name="pesquisar">
+    <label>Pesquisar produto: </label>
+    <select name="tipo_pesquisa">
+        <option value="nome">Nome</option>
+        <option value="tipo">Tipo</option>
+        <option value="marca">Marca</option>
+    </select>
+    <input type="text" name="pesquisar">
     <button>Pesquisar</button>
 </form>
 
-<table>
-    <tr>
-        <td>ID_PRODUTO</td>
-        <td>Nome_produto</td>
-    </tr>
 
-    <?php if($p) : ?>
-        <!--        <?php //foreach($p as $produto) : ?> -->
+<?php if($p) : ?>
+    <table border="1">
         <tr>
-            <td><?= $p->id_produto; ?></td>
-            <td><?= $p->nome_produto; ?></td>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Tipo</th>
+            <th>Marca</th>
+            <th>Cor</th>
+            <th>Tamanho</th>
+            <th>Quantidade</th>
+            <th>Preço</th>
         </tr>
-        <!--        --><?php //endforeach; ?>
-    <?php endif; ?>
+        <?php foreach($p as $produto) : ?>
+            <tr>
+                <td><?= $produto->id_produto; ?></td>
+                <td><?= $produto->nome_produto; ?></td>
+                <td><?= $produto->tipo_produto; ?></td>
+                <td><?= $produto->marca_produto; ?></td>
+                <td><?= $produto->cor_produto; ?></td>
+                <td><?= $produto->tamanho_produto; ?></td>
+                <td><?= $produto->quantidade_produto; ?></td>
+                <td><?= $produto->preco_produto; ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+<?php endif; ?>
 
-</table>
 
 <table>
 

@@ -17,8 +17,8 @@ Class ProdutoController {
         return $this->produto->LerTodos();
     }
 
-    public function pesquisaProduto($id_produto){
-        return $this->produto->PesquisaProduto($id_produto);
+    public function pesquisaProduto($valor, $tipo){
+        return $this->produto->pesquisaProduto($valor, $tipo);
     }
 
     public function cadastrarProduto($dados){

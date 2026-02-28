@@ -21,14 +21,25 @@ Class Produto {
         return $resultado->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function pesquisaProduto($id_produto){
-        $sql = "SELECT * FROM produtos WHERE ID_PRODUTO = :id_produto";
+    public function pesquisaProduto($valor, $tipo){
+        if($tipo === "nome"){
+            $sql = "SELECT * FROM produtos WHERE nome_produto LIKE :valor";
+            $valor = "%".$valor."%";
+        } elseif($tipo === "tipo"){
+            $sql = "SELECT * FROM produtos WHERE tipo_produto LIKE :valor";
+            $valor = "%".$valor."%";
+        } elseif($tipo === "marca"){
+            $sql = "SELECT * FROM produtos WHERE marca_produto LIKE :valor";
+            $valor = "%".$valor."%";
+        }
+
         $resultado = $this->bd->prepare($sql);
-        $resultado->bindParam(":id_produto", $id_produto);
+        $resultado->bindParam(":valor", $valor);
         $resultado->execute();
 
-        return $resultado->fetch(PDO::FETCH_OBJ);
+        return $resultado->fetchAll(PDO::FETCH_OBJ); // pode retornar vários produtos
     }
+
 
     public function cadastrar(){
         $sql = "INSERT INTO produtos(nome_produto, tipo_produto, cor_produto, tamanho_produto,
