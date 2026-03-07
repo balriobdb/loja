@@ -61,4 +61,48 @@ Class Produto {
             return false;
         }
     }
+
+    public function excluir(){
+        $sql = "DELETE FROM produtos WHERE id_produto = :id_produto";
+        $stmt = $this->bd->prepare($sql);
+        $stmt->bindParam(":id_produto", $this->id_produto, PDO::PARAM_INT);
+
+        return $stmt->execute();
+    }
+
+    public function atualizar(){
+        $sql = "UPDATE produtos 
+            SET nome_produto = :nome_produto, 
+                tipo_produto = :tipo_produto, 
+                cor_produto = :cor_produto, 
+                tamanho_produto = :tamanho_produto, 
+                marca_produto = :marca_produto, 
+                quantidade_produto = :quantidade_produto, 
+                preco_produto = :preco_produto
+            WHERE id_produto = :id_produto";
+
+        $stmt = $this->bd->prepare($sql);
+        $stmt->bindParam(":nome_produto", $this->nome_produto, PDO::PARAM_STR);
+        $stmt->bindParam(":tipo_produto", $this->tipo_produto, PDO::PARAM_STR);
+        $stmt->bindParam(":cor_produto", $this->cor_produto, PDO::PARAM_STR);
+        $stmt->bindParam(":tamanho_produto", $this->tamanho_produto, PDO::PARAM_STR);
+        $stmt->bindParam(":marca_produto", $this->marca_produto, PDO::PARAM_STR);
+        $stmt->bindParam(":quantidade_produto", $this->quantidade_produto, PDO::PARAM_INT);
+        $stmt->bindParam(":preco_produto", $this->preco_produto, PDO::PARAM_STR);
+        $stmt->bindParam(":id_produto", $this->id_produto, PDO::PARAM_INT);
+
+        return $stmt->execute();
+    }
+
+    public function buscaProduto($id_produto){
+        $sql = "SELECT * FROM produtos WHERE id_produto = :id_produto";
+        $resultado = $this->bd->prepare($sql);
+        $resultado->bindParam(":id_produto", $id_produto, PDO::PARAM_INT);
+        $resultado->execute();
+
+        return $resultado->fetch(PDO::FETCH_OBJ);
+    }
+
+
+
 }
