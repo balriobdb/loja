@@ -5,7 +5,7 @@ if($_SERVER["REQUEST_METHOD"] === 'POST'){
     $controller = new ProdutoController();
 
     if (isset($_POST["cadastrar"])){
-        $a = $controller->cadastrarProduto($_POST["produto"]);
+        $a = $controller->cadastrarProduto($_POST["produto"], $_FILES["produto"]);
     }
 }
 
@@ -26,7 +26,7 @@ if($_SERVER["REQUEST_METHOD"] === 'POST'){
 
 <a href="index.php">Voltar</a>
 
-<form action="cadastro.php" method="post">
+<form action="cadastro.php" method="post" enctype="multipart/form-data">
     <label>Nome do Produto</label>
     <input type="text" name="produto[nome_produto]"><br><br>
 
@@ -47,6 +47,9 @@ if($_SERVER["REQUEST_METHOD"] === 'POST'){
 
     <label>Preço</label>
     <input type="text" name="produto[preco_produto]"><br><br>
+
+    <label for="fileTopUpload">Selecionar Foto</label>
+    <input type="file" name="produto[fileToUpload]" id="fileTopUpload"><br><br>
 
     <button name="cadastrar">Cadastrar Produto</button>
 </form>

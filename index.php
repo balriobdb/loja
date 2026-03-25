@@ -113,6 +113,7 @@ if($_SERVER["REQUEST_METHOD"] === "GET"){
                 <td><?php echo "R$ " . number_format($produto->preco_produto, 2, ',', '.'); ?></td>
                 <td><a href="atualizar.php?alterar=<?= $produto->id_produto ?>">Alterar</a> </td>
                 <td><a href="index.php?excluir=<?= $produto->id_produto ?>">Excluir</a> </td>
+                <td><a href="ver-produto.php?id_produto=<?= $produto->id_produto ?>">Visualizar</a> </td>
             </tr>
         <?php endforeach; ?>
     <?php endif; ?>

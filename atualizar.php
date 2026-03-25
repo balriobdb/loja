@@ -6,7 +6,7 @@ $controller = new ProdutoController();
 if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['alterar'])){
     $p = $controller->localizarProduto($_GET['alterar']);
 }elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['produto'])){
-    $p = $controller->atualizarProduto($_POST['produto']);
+    $p = $controller->atualizarProduto($_POST['produto'], $_FILES["produto"]);
 }else{
     header("location: index.php");
 }
@@ -26,7 +26,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['alterar'])){
 
 <a href="index.php">Voltar</a>
 
-<form action="atualizar.php" method="post">
+<form action="atualizar.php" method="post" enctype="multipart/form-data">
     <input type="text" name="produto[id_produto]" value="<?= $p->id_produto ?>" hidden>
 
     <label>Nome do Produto</label>
@@ -49,6 +49,9 @@ if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['alterar'])){
 
     <label>Preço</label>
     <input type="text" name="produto[preco_produto]" value="<?= $p->preco_produto ?>"><br><br>
+
+    <label for="fileTopUpload">Selecionar Foto</label>
+    <input type="file" name="produto[fileToUpload]" value="<? $p->imagem_produto ?>"><br><br>
 
     <button name="atualizar">Atualizar Produto</button>
 </form>

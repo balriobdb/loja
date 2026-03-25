@@ -8,6 +8,7 @@ Class Produto {
     public $marca_produto;
     public $quantidade_produto;
     public $preco_produto;
+    public $imagem_produto;
     public $bd;
     public function __construct($bd){
         $this->bd = $bd;
@@ -43,8 +44,8 @@ Class Produto {
 
     public function cadastrar(){
         $sql = "INSERT INTO produtos(nome_produto, tipo_produto, cor_produto, tamanho_produto,
-                marca_produto, quantidade_produto, preco_produto) VALUES(:nome_produto, :tipo_produto, :cor_produto,
-                :tamanho_produto, :marca_produto, :quantidade_produto, :preco_produto)";
+                marca_produto, quantidade_produto, preco_produto, imagem_produto) VALUES(:nome_produto, :tipo_produto, :cor_produto,
+                :tamanho_produto, :marca_produto, :quantidade_produto, :preco_produto, :imagem_produto)";
 
         $stmt = $this->bd->prepare($sql);
         $stmt->bindParam(":nome_produto", $this->nome_produto, PDO::PARAM_STR);
@@ -54,6 +55,7 @@ Class Produto {
         $stmt->bindParam(":marca_produto", $this->marca_produto, PDO::PARAM_STR);
         $stmt->bindParam(":quantidade_produto", $this->quantidade_produto, PDO::PARAM_STR);
         $stmt->bindParam(":preco_produto", $this->preco_produto, PDO::PARAM_STR);
+        $stmt->bindParam(":imagem_produto", $this->imagem_produto, PDO::PARAM_STR);
 
         if($stmt->execute()){
             return true;
@@ -78,7 +80,8 @@ Class Produto {
                 tamanho_produto = :tamanho_produto, 
                 marca_produto = :marca_produto, 
                 quantidade_produto = :quantidade_produto, 
-                preco_produto = :preco_produto
+                preco_produto = :preco_produto,
+                imagem_produto = :imagem_produto
             WHERE id_produto = :id_produto";
 
         $stmt = $this->bd->prepare($sql);
@@ -90,6 +93,7 @@ Class Produto {
         $stmt->bindParam(":quantidade_produto", $this->quantidade_produto, PDO::PARAM_INT);
         $stmt->bindParam(":preco_produto", $this->preco_produto, PDO::PARAM_STR);
         $stmt->bindParam(":id_produto", $this->id_produto, PDO::PARAM_INT);
+        $stmt->bindParam(":imagem_produto", $this->imagem_produto, PDO::PARAM_INT);
 
         return $stmt->execute();
     }
@@ -102,7 +106,5 @@ Class Produto {
 
         return $resultado->fetch(PDO::FETCH_OBJ);
     }
-
-
 
 }
