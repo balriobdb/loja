@@ -18,7 +18,6 @@ Class Produto {
         $sql = "SELECT * FROM produtos";
         $resultado = $this->bd->query($sql);
         $resultado->execute();
-
         return $resultado->fetchAll(PDO::FETCH_OBJ);
     }
 
@@ -93,7 +92,7 @@ Class Produto {
         $stmt->bindParam(":quantidade_produto", $this->quantidade_produto, PDO::PARAM_INT);
         $stmt->bindParam(":preco_produto", $this->preco_produto, PDO::PARAM_STR);
         $stmt->bindParam(":id_produto", $this->id_produto, PDO::PARAM_INT);
-        $stmt->bindParam(":imagem_produto", $this->imagem_produto, PDO::PARAM_INT);
+        $stmt->bindParam(":imagem_produto", $this->imagem_produto, PDO::PARAM_STR);
 
         return $stmt->execute();
     }

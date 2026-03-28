@@ -72,6 +72,7 @@ Class ProdutoController {
         if(!$temArquivo){
             $this->img_name = null;
         }
+
         $this->produto->id_produto = $dados["id_produto"];
         $this->produto->nome_produto = $dados["nome_produto"];
         $this->produto->tipo_produto = $dados["tipo_produto"];
