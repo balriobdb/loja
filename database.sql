@@ -64,5 +64,5 @@ CREATE TABLE IF NOT EXISTS favoritos (
 -- Inserindo Administrador Master
 -- Login: admin
 -- Senha: 123456
-INSERT INTO funcionarios (cpf, nome, email, endereço, telefone, funcao, login, senha) 
+INSERT INTO funcionarios (cpf, nome, email, endereco, telefone, funcao, login, senha) 
 VALUES ('000.000.000-00', 'Administrador Master', 'admin@loja.com', 'Sede Balrio', '00-0000-0000', 'Administrador', 'admin', '$2y$10$RU1r7xCHx//WNJeNYxq51e2onBJCZ4mBKT0IAAzR/eLCjeXelPth2');
