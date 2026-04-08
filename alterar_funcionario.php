@@ -13,17 +13,13 @@ include_once ("objetos/FuncionarioController.php");
 $controller = new FuncionarioController();
 
 if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['alterar'])){
-    $f = $controller->localizarFuncionario($_GET['alterar']);
-    if(!$f){
-        header("location: index_funcionario.php");
-        exit();
-    }
+    $a = $controller->localizarFuncionario($_GET['alterar']);
 }elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['funcionario'])){
-    $controller->atualizarFuncionario($_POST['funcionario']);
+    $a = $controller->atualizarFuncionario($_POST['funcionario']);
 }else{
     header("location: index_funcionario.php");
-    exit();
 }
+
 ?>
 
 <!doctype html>
@@ -31,11 +27,11 @@ if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['alterar'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Alterar FuncionÃ¡rio</title>
+    <title>Alterar Funcionário</title>
 </head>
 <body>
 
-<h1>AtualizaÃ§Ã£o de FuncionÃ¡rio</h1>
+<h1>Atualização de Funcionário</h1>
 
 <a href="index_funcionario.php">Voltar</a>
 

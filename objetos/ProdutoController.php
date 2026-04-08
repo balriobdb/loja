@@ -46,7 +46,7 @@ Class ProdutoController {
         $this->produto->imagem_produto = $this->img_name;
 
         if($this->produto->Cadastrar()){
-            header("location: index.php");
+            header("location: index_produto.php");
             exit();
         }
     }
@@ -55,7 +55,7 @@ Class ProdutoController {
         $this->produto->id_produto = $id_produto;
 
         if($this->produto->Excluir()){
-            header("location: index.php");
+            header("location: index_produto.php");
         }
     }
 
@@ -66,7 +66,7 @@ Class ProdutoController {
     public function restaurarProduto($id_produto){
         $this->produto->id_produto = $id_produto;
         if($this->produto->restaurar()){
-            header("location: arquivados.php");
+            header("location: arquivados_produto.php");
             exit();
         }
     }
@@ -82,7 +82,8 @@ Class ProdutoController {
         }
 
         if(!$temArquivo){
-            $this->img_name = null;
+            $produto_atual = $this->localizarProduto($dados["id_produto"]);
+            $this->img_name = $produto_atual->imagem_produto;
         }
 
         $this->produto->id_produto = $dados["id_produto"];
@@ -96,7 +97,7 @@ Class ProdutoController {
         $this->produto->imagem_produto = $this->img_name;
 
         if($this->produto->Atualizar()){
-            header("location: index.php");
+            header("location: index_produto.php");
         }
     }
 
@@ -123,13 +124,13 @@ Class ProdutoController {
             //echo "Imagem selecionada - " . $check["mime"] . ".<br>";
             $uploadOk = 1;
         } else {
-            // echo "O arquivo selecionado nÃ£o Ã© uma imagem.<br>";
+            // echo "O arquivo selecionado não é uma imagem.<br>";
             $uploadOk = 0;
         }
 
-        // Verifica se o arquivo jÃ¡ existe na pasta
+        // Verifica se o arquivo já existe na pasta
         if (file_exists($upload_file)) {
-            // echo "O arquivo jÃ¡ existe no servidor.<br>";
+            // echo "O arquivo já existe no servidor.<br>";
             $uploadOk = 0;
         }
 
@@ -137,23 +138,23 @@ Class ProdutoController {
         if ($arquivo['size']['fileToUpload'] > 5000000) {
             // echo "Arquivo muito grande!<br>";
             $uploadOk = 0;
-            echo "imagem Ã© muito grande";
+            echo "imagem é muito grande";
             die();
         }
         // Permite apenas determinados tipos de arquivo - jpg, png, jpeg e gif
         if (
             $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-            && $imageFileType != "gif"
+            && $imageFileType != "gif" && $imageFileType != "webp"
         ) {
-            //  echo "SÃ£o aceitas somente imagens JPG, JPEG, PNG e GIF.";
+            //  echo "São aceitas somente imagens JPG, JPEG, PNG, GIF e WEBP.";
             $uploadOk = 0;
         }
 
-        // VerificaÃ§Ã£o de erros. Se $uploadOk=0 ocorreu algum erro
+        // Verificação de erros. Se $uploadOk=0 ocorreu algum erro
         if ($uploadOk == 0) {
-            //  echo "Erro: nÃ£o foi possÃ­vel fazer upload.";
+            //  echo "Erro: não foi possível fazer upload.";
             return false;
-            // Se nÃ£o ocorreu problemas, tenta fazer upload
+            // Se não ocorreu problemas, tenta fazer upload
         } else {
             if (move_uploaded_file($arquivo['tmp_name']['fileToUpload'], $upload_file)) {
                 //     echo "Arquivo ". basename( $arquivo['full_path']['fileToUpload']) . " enviado.";

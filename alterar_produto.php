@@ -12,8 +12,8 @@ include_once ("objetos/ProdutoController.php");
 
 $controller = new ProdutoController();
 
-if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['alterar'])){
-    $p = $controller->localizarProduto($_GET['alterar']);
+if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_produto'])){
+    $p = $controller->localizarProduto($_GET['id_produto']);
 }elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['produto'])){
     $p = $controller->atualizarProduto($_POST['produto'], $_FILES["produto"]);
 }else{
@@ -27,11 +27,11 @@ if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['alterar'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cadastro de Produto</title>
+    <title>Atualização de Produtos</title>
 </head>
 <body>
 
-<h1>AtualizaÃ§Ã£o de produtos</h1>
+<h1>Atualização de produtos</h1>
 
 <a href="index_produto.php">Voltar</a>
 
@@ -56,7 +56,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['alterar'])){
     <label>Quantidade</label>
     <input type="number" name="produto[quantidade_produto]" value="<?= $p->quantidade_produto ?>"><br><br>
 
-    <label>PreÃ§o</label>
+    <label>Preço</label>
     <input type="text" name="produto[preco_produto]" value="<?= $p->preco_produto ?>"><br><br>
 
     <label for="fileTopUpload">Selecionar Foto</label>

@@ -49,7 +49,7 @@ if($_SERVER["REQUEST_METHOD"] === "GET"){
 
 <h1>Loja de Roupas</h1>
 
-<!--Link da pÃ¡gina Cadastro de Produto-->
+<!--Link da página Cadastro de Produto-->
 <!-- Ferramentas Administrativas -->
 <div style="background: #f1f5f9; padding: 1rem; border-radius: 8px; margin-bottom: 2rem;">
     <p>Bem-vindo, <strong><?= $_SESSION["funcionario"]->nome ?></strong> (<?= $_SESSION["funcionario"]->funcao ?>)</p>
@@ -59,6 +59,7 @@ if($_SERVER["REQUEST_METHOD"] === "GET"){
         
         <?php if ($_SESSION["funcionario"]->funcao === "Administrador") : ?>
             <a href="index_funcionario.php">Gerenciar Funcionários</a>
+            <a href="index_cliente.php">Gerenciar Clientes</a>
         <?php endif; ?>
         
         <a href="logout.php" style="color: #ef4444; margin-left: auto; font-weight: bold;">Sair</a>
