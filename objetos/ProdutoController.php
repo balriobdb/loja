@@ -59,6 +59,18 @@ Class ProdutoController {
         }
     }
 
+    public function indexArquivados(){
+        return $this->produto->LerArquivados();
+    }
+
+    public function restaurarProduto($id_produto){
+        $this->produto->id_produto = $id_produto;
+        if($this->produto->restaurar()){
+            header("location: arquivados.php");
+            exit();
+        }
+    }
+
     public function atualizarProduto($dados, $arquivo){
         $temArquivo = isset($arquivo['name']['fileToUpload'])
             && $arquivo['name']['fileToUpload'] !== ""
@@ -111,13 +123,13 @@ Class ProdutoController {
             //echo "Imagem selecionada - " . $check["mime"] . ".<br>";
             $uploadOk = 1;
         } else {
-            // echo "O arquivo selecionado não é uma imagem.<br>";
+            // echo "O arquivo selecionado nÃ£o Ã© uma imagem.<br>";
             $uploadOk = 0;
         }
 
-        // Verifica se o arquivo já existe na pasta
+        // Verifica se o arquivo jÃ¡ existe na pasta
         if (file_exists($upload_file)) {
-            // echo "O arquivo já existe no servidor.<br>";
+            // echo "O arquivo jÃ¡ existe no servidor.<br>";
             $uploadOk = 0;
         }
 
@@ -125,7 +137,7 @@ Class ProdutoController {
         if ($arquivo['size']['fileToUpload'] > 5000000) {
             // echo "Arquivo muito grande!<br>";
             $uploadOk = 0;
-            echo "imagem é muito grande";
+            echo "imagem Ã© muito grande";
             die();
         }
         // Permite apenas determinados tipos de arquivo - jpg, png, jpeg e gif
@@ -133,15 +145,15 @@ Class ProdutoController {
             $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
             && $imageFileType != "gif"
         ) {
-            //  echo "São aceitas somente imagens JPG, JPEG, PNG e GIF.";
+            //  echo "SÃ£o aceitas somente imagens JPG, JPEG, PNG e GIF.";
             $uploadOk = 0;
         }
 
-        // Verificação de erros. Se $uploadOk=0 ocorreu algum erro
+        // VerificaÃ§Ã£o de erros. Se $uploadOk=0 ocorreu algum erro
         if ($uploadOk == 0) {
-            //  echo "Erro: não foi possível fazer upload.";
+            //  echo "Erro: nÃ£o foi possÃ­vel fazer upload.";
             return false;
-            // Se não ocorreu problemas, tenta fazer upload
+            // Se nÃ£o ocorreu problemas, tenta fazer upload
         } else {
             if (move_uploaded_file($arquivo['tmp_name']['fileToUpload'], $upload_file)) {
                 //     echo "Arquivo ". basename( $arquivo['full_path']['fileToUpload']) . " enviado.";

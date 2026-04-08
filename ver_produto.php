@@ -17,7 +17,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_produto'])){
 </head>
 <body>
 
-<a href="index.php">Voltar</a>
+<a href="index_produto.php">Voltar</a>
 
 <h1>#<?=$p->id_produto?> - <?=$p->nome_produto?></h1>
 <p><strong>Tipo: </strong><?= $p->tipo_produto ?></p>

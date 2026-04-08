@@ -15,7 +15,7 @@ Class Produto {
     }
 
     public function LerTodos(){
-        $sql = "SELECT * FROM produtos";
+        $sql = "SELECT * FROM produtos WHERE arquivado = 0";
         $resultado = $this->bd->query($sql);
         $resultado->execute();
         return $resultado->fetchAll(PDO::FETCH_OBJ);
@@ -37,7 +37,7 @@ Class Produto {
         $resultado->bindParam(":valor", $valor);
         $resultado->execute();
 
-        return $resultado->fetchAll(PDO::FETCH_OBJ); // pode retornar vários produtos
+        return $resultado->fetchAll(PDO::FETCH_OBJ); // pode retornar vÃ¡rios produtos
     }
 
 
@@ -64,7 +64,22 @@ Class Produto {
     }
 
     public function excluir(){
-        $sql = "DELETE FROM produtos WHERE id_produto = :id_produto";
+        $sql = "UPDATE produtos SET arquivado = 1, data_arquivamento = NOW() WHERE id_produto = :id_produto";
+        $stmt = $this->bd->prepare($sql);
+        $stmt->bindParam(":id_produto", $this->id_produto, PDO::PARAM_INT);
+
+        return $stmt->execute();
+    }
+
+    public function LerArquivados(){
+        $sql = "SELECT * FROM produtos WHERE arquivado = 1";
+        $resultado = $this->bd->query($sql);
+        $resultado->execute();
+        return $resultado->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function restaurar(){
+        $sql = "UPDATE produtos SET arquivado = 0, data_arquivamento = NULL WHERE id_produto = :id_produto";
         $stmt = $this->bd->prepare($sql);
         $stmt->bindParam(":id_produto", $this->id_produto, PDO::PARAM_INT);
 

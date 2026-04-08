@@ -1,4 +1,13 @@
 <?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (!isset($_SESSION["funcionario"])) {
+    header("Location: login_funcionario.php");
+    exit();
+}
+
 include_once ("objetos/ProdutoController.php");
 
 if($_SERVER["REQUEST_METHOD"] === 'POST'){
@@ -11,8 +20,6 @@ if($_SERVER["REQUEST_METHOD"] === 'POST'){
 
 ?>
 
-
-
 <!doctype html>
 <html lang="pt-br">
 <head>
@@ -24,9 +31,9 @@ if($_SERVER["REQUEST_METHOD"] === 'POST'){
 
 <h1>Cadastro de Produto</h1>
 
-<a href="index.php">Voltar</a>
+<a href="index_produto.php">Voltar</a>
 
-<form action="cadastro.php" method="post" enctype="multipart/form-data">
+<form action="cadastro_produto.php" method="post" enctype="multipart/form-data">
     <label>Nome do Produto</label>
     <input type="text" name="produto[nome_produto]"><br><br>
 
@@ -45,7 +52,7 @@ if($_SERVER["REQUEST_METHOD"] === 'POST'){
     <label>Quantidade</label>
     <input type="number" name="produto[quantidade_produto]"><br><br>
 
-    <label>Preço</label>
+    <label>PreÃ§o</label>
     <input type="text" name="produto[preco_produto]"><br><br>
 
     <label for="fileTopUpload">Selecionar Foto</label>
@@ -55,3 +62,4 @@ if($_SERVER["REQUEST_METHOD"] === 'POST'){
 </form>
 </body>
 </html>
+
