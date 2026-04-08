@@ -46,7 +46,7 @@ Class ProdutoController {
         $this->produto->imagem_produto = $this->img_name;
 
         if($this->produto->Cadastrar()){
-            header("location: index.php");
+            header("location: index_produto.php");
             exit();
         }
     }
@@ -55,7 +55,19 @@ Class ProdutoController {
         $this->produto->id_produto = $id_produto;
 
         if($this->produto->Excluir()){
-            header("location: index.php");
+            header("location: index_produto.php");
+        }
+    }
+
+    public function indexArquivados(){
+        return $this->produto->LerArquivados();
+    }
+
+    public function restaurarProduto($id_produto){
+        $this->produto->id_produto = $id_produto;
+        if($this->produto->restaurar()){
+            header("location: arquivados_produto.php");
+            exit();
         }
     }
 
@@ -70,7 +82,8 @@ Class ProdutoController {
         }
 
         if(!$temArquivo){
-            $this->img_name = null;
+            $produto_atual = $this->localizarProduto($dados["id_produto"]);
+            $this->img_name = $produto_atual->imagem_produto;
         }
 
         $this->produto->id_produto = $dados["id_produto"];
@@ -84,7 +97,7 @@ Class ProdutoController {
         $this->produto->imagem_produto = $this->img_name;
 
         if($this->produto->Atualizar()){
-            header("location: index.php");
+            header("location: index_produto.php");
         }
     }
 
@@ -131,9 +144,9 @@ Class ProdutoController {
         // Permite apenas determinados tipos de arquivo - jpg, png, jpeg e gif
         if (
             $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-            && $imageFileType != "gif"
+            && $imageFileType != "gif" && $imageFileType != "webp"
         ) {
-            //  echo "São aceitas somente imagens JPG, JPEG, PNG e GIF.";
+            //  echo "São aceitas somente imagens JPG, JPEG, PNG, GIF e WEBP.";
             $uploadOk = 0;
         }
 

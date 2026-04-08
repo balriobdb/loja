@@ -1,14 +1,23 @@
 <?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (!isset($_SESSION["funcionario"])) {
+    header("Location: login_funcionario.php");
+    exit();
+}
+
 include_once ("objetos/ProdutoController.php");
 
 $controller = new ProdutoController();
 
-if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['alterar'])){
-    $p = $controller->localizarProduto($_GET['alterar']);
+if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_produto'])){
+    $p = $controller->localizarProduto($_GET['id_produto']);
 }elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['produto'])){
     $p = $controller->atualizarProduto($_POST['produto'], $_FILES["produto"]);
 }else{
-    header("location: index.php");
+    header("location: index_produto.php");
 }
 
 ?>
@@ -18,15 +27,15 @@ if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['alterar'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cadastro de Produto</title>
+    <title>Atualização de Produtos</title>
 </head>
 <body>
 
 <h1>Atualização de produtos</h1>
 
-<a href="index.php">Voltar</a>
+<a href="index_produto.php">Voltar</a>
 
-<form action="atualizar.php" method="post" enctype="multipart/form-data">
+<form action="alterar_produto.php" method="post" enctype="multipart/form-data">
     <input type="text" name="produto[id_produto]" value="<?= $p->id_produto ?>" hidden>
 
     <label>Nome do Produto</label>
